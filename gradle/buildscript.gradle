@@ -17,7 +17,9 @@ repositories {
   repositories {
     // For license plugin.
     maven {
-      url 'http://dl.bintray.com/content/netflixoss/external-gradle-plugins/'
+      // url 'http://dl.bintray.com/content/netflixoss/external-gradle-plugins/'
+      url 'https://plugins.gradle.org/m2/'
+      // allowInsecureProtocol = true
     }
   }
 }

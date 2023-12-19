@@ -25,12 +25,16 @@ import org.gradle.api.internal.project.IsolatedAntBuilder
 apply plugin: RatPlugin
 
 class RatTask extends DefaultTask {
-  @Input
+  @InputFiles
   List<String> excludes
-
+  
+  @OutputFile
   def reportPath = 'build/rat'
+  @OutputFile
   def stylesheet = 'gradle/resources/rat-output-to-html.xsl'
+  @OutputFile
   def xmlReport = reportPath + '/rat-report.xml'
+  @OutputFile
   def htmlReport = reportPath + '/rat-report.html'
 
   def generateXmlReport(File reportDir) {
