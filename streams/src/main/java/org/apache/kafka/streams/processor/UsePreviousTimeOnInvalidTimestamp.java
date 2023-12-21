@@ -51,7 +51,7 @@ public class UsePreviousTimeOnInvalidTimestamp extends ExtractRecordMetadataTime
      *
      * @param record a data record
      * @param recordTimestamp the timestamp extractor from the record
-     * @param previousTimestamp the latest extracted valid timestamp of the current record's partition˙ (could be -1 if unknown)
+     * @param previousTimestamp the latest extracted valid timestamp of the current record's partition (could be -1 if unknown)
      * @return the provided latest extracted valid timestamp as new timestamp for the record
      * @throws StreamsException if latest extracted valid timestamp is unknown
      */

@@ -15,6 +15,7 @@
 
 import org.ajoberstar.grgit.Grgit
 
+apply plugin: 'java'
 buildscript {
   repositories {
     mavenCentral()
@@ -137,6 +138,7 @@ if (new File('.git').exists()) {
         'streams/quickstart/java/src/test/resources/projects/basic/goal.txt',
         'streams/streams-scala/logs/*'
     ])
+    dependsOn compileJava, compileTestJava, processResources
   }
 }
 
@@ -931,6 +933,7 @@ project(':tools') {
   dependencies {
     implementation project(':clients')
     implementation project(':log4j-appender')
+    implementation 'log4j:log4j:1.2.17'
     implementation libs.argparse4j
     implementation libs.jacksonDatabind
     implementation libs.slf4jApi
@@ -1039,7 +1042,7 @@ project(':streams:streams-scala') {
 
   dependencies {
     implementation project(':streams')
-
+    implementation project(':clients')
     implementation libs.scalaLibrary
 
     testImplementation project(':core')
@@ -1308,6 +1311,7 @@ project(':connect:transforms') {
 
   dependencies {
     implementation project(':connect:api')
+    implementation project(':clients')
     implementation libs.slf4jApi
 
     testImplementation libs.easymock
@@ -1346,6 +1350,7 @@ project(':connect:json') {
 
   dependencies {
     implementation project(':connect:api')
+    implementation project(':clients')
     implementation libs.jacksonDatabind
     implementation libs.slf4jApi
 
@@ -1464,6 +1469,7 @@ project(':connect:file') {
 
   dependencies {
     implementation project(':connect:api')
+    implementation project(':clients')
     implementation libs.slf4jApi
 
     testImplementation libs.easymock
@@ -1502,7 +1508,9 @@ project(':connect:basic-auth-extension') {
 
   dependencies {
     implementation project(':connect:api')
+    implementation project(':clients')
     implementation libs.slf4jApi
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.0'
 
     testImplementation libs.bcpkix
     testImplementation libs.easymock

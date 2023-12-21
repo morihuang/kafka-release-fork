@@ -28,7 +28,7 @@ class RatTask extends DefaultTask {
   @InputFiles
   List<String> excludes
   
-  @OutputFile
+  @OutputDirectory
   def reportPath = 'build/rat'
   @OutputFile
   def stylesheet = 'gradle/resources/rat-output-to-html.xsl'
