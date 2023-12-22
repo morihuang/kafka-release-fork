@@ -43,6 +43,7 @@ allprojects {
       url = "$repoUrl"
     }
     mavenLocal()
+    mavenCentral()
   }
   
   apply plugin: 'idea'
@@ -70,7 +71,10 @@ allprojects {
         }
       }
 
-      testRuntimeOnly {
+      // testRuntimeOnly {
+      //   canBeResolved = true
+      // }
+      testRuntimeClasspath {
         canBeResolved = true
       }
     }
@@ -85,7 +89,8 @@ allprojects {
 }
 
 ext {
-  gradleVersion = "8.1.1"
+  gradleVersion = "8.5"
+  // gradleVersion = "8.1.1"
   // gradleVersion = "4.8.1"
   minJavaVersion = "8"
   buildVersionFileName = "kafka-version.properties"
@@ -560,9 +565,13 @@ tasks.create(name: "uploadArchivesAll", dependsOn: withDefScalaVersions('uploadS
 project(':core') {
   println "Building project 'core' with Scala version ${versions.scala}"
 
-  apply plugin: 'scala'
+  // apply plugin: 'scala'
   apply plugin: "org.scoverage"
   archivesBaseName = "kafka_${versions.baseScala}"
+
+  // scala {
+  //     zincVersion = "1.9.3"
+  // }
 
   dependencies {
     implementation project(':clients')
@@ -587,6 +596,7 @@ project(':core') {
       exclude module: 'log4j'
       exclude module: 'netty'
     }
+    // implementation 'org.scala-sbt:zinc_2.13:1.9.3'
 
     compileOnly libs.log4j
 
@@ -634,7 +644,7 @@ project(':core') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -782,7 +792,7 @@ project(':core') {
   }
 
   tasks.create(name: "copyDependantTestLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('*.jar')
     }
     into "$buildDir/dependant-testlibs"
@@ -962,7 +972,7 @@ project(':tools') {
   }
   
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1008,7 +1018,7 @@ project(':streams') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1289,7 +1299,7 @@ project(':connect:api') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1328,7 +1338,7 @@ project(':connect:transforms') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1368,7 +1378,7 @@ project(':connect:json') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1425,7 +1435,7 @@ project(':connect:runtime') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1486,7 +1496,7 @@ project(':connect:file') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
@@ -1528,7 +1538,7 @@ project(':connect:basic-auth-extension') {
   }
 
   tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.testRuntimeOnly) {
+    from (configurations.testRuntimeClasspath) {
       include('slf4j-log4j12*')
       include('log4j*jar')
     }
