@@ -56,7 +56,7 @@ public class LogAndSkipOnInvalidTimestamp extends ExtractRecordMetadataTimestamp
      *
      * @param record a data record
      * @param recordTimestamp the timestamp extractor from the record
-     * @param previousTimestamp the latest extracted valid timestamp of the current record's partition˙ (could be -1 if unknown)
+     * @param previousTimestamp the latest extracted valid timestamp of the current record's partition (could be -1 if unknown)
      * @return the originally extracted timestamp of the record
      */
     @Override
